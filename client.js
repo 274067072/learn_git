@@ -35,6 +35,7 @@ class Request {
             port: this.port,
           },
           () => {
+            console.log(this.toString());
             connection.write(this.toString());
           }
         );
@@ -47,6 +48,7 @@ class Request {
         }
       });
       connection.on("error", (err) => {
+        console.error(err);
         reject(err);
         connection.end();
       });
@@ -54,12 +56,7 @@ class Request {
   }
 
   toString() {
-    return `${this.method}${this.path}HTTP/1.1\r
-    ${Object.keys(this.headers)
-      .map((key) => `${key}:${this.headers[key]}`)
-      .join("\r\n")}\r\r
-    ${this.bodyText}`;
-  }
+    return `${this.method} ${this.path} HTTP/1.1\r\n${Object.keys(this.headers).map(key => `${key}: ${this.headers[key]}`).join("\r\n")}\r\n\r\n${this.bodyText}`}
 }
 
 class ResponseParser {
@@ -100,7 +97,7 @@ class ResponseParser {
   receiveChar(char) {
     if (this.current === this.WAITING_STATUS_LINE) {
       if (char === "\r") {
-        this.current = this.WATINF_SYAYUS_LINE_END;
+        this.current = this.WAITING_STATUS_LINE_END;
       } else {
         this.statusLine += char;
       }
@@ -204,6 +201,7 @@ void (async function () {
       name: "winter",
     },
   });
+  console.log(request);
   let response = await request.send();
   console.log(response);
 })();
