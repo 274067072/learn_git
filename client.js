@@ -1,4 +1,5 @@
 const net = require("net");
+const parser=require("./parser.js")
 
 class Request {
   constructor(options) {
@@ -41,6 +42,7 @@ class Request {
         );
       }
       connection.on("data", (data) => {
+        console.log(data.toString())
         parser.receive(data.toString());
         if (parser.isFinshied) {
           resolve(parser.response);
@@ -48,7 +50,6 @@ class Request {
         }
       });
       connection.on("error", (err) => {
-        console.error(err);
         reject(err);
         connection.end();
       });
@@ -201,7 +202,7 @@ void (async function () {
       name: "winter",
     },
   });
-  console.log(request);
+
   let response = await request.send();
-  console.log(response);
+  let dom=parser.parseHTML(response.body);
 })();

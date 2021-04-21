@@ -14,9 +14,37 @@ const server = http.createServer((req, res) => {
     })
     .on("end", () => {
       body = Buffer.concat(body).toString();
-      console.log(body);
       res.writeHead(200, { "Content-Type": "text/html" });
-      res.end("hello world");
+      res.end(`<html lang="en">
+      <head>
+        <meta charset="UTF-8"/>
+        <title>Document</title>
+        <style>
+          #box{
+            width:80%;
+            margin:0 auto;
+            background: #ccc;
+            text-align:center;
+          }
+          img{
+            display: inline-block;
+            padding:1.5%;
+            width:21%;
+            height:200px;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="box">
+          <img src="http://img.mukewang.com/climg/5a45e49100014e5010601059.jpg" alt=""/>
+          <img src="http://img.mukewang.com/climg/5a45e53b00012e6d09940789.jpg" alt=""/>
+          <img src="http://img.mukewang.com/climg/5a45e53c0001d04e09940732.jpg" alt=""/>
+          <img src="http://img.mukewang.com/climg/5a45e49100014e5010601059.jpg" alt=""/>
+          <img src="http://img.mukewang.com/climg/5a45e53b00012e6d09940789.jpg" alt=""/>
+          <img src="http://img.mukewang.com/climg/5a45e53c0001d04e09940732.jpg" alt=""/>
+        </div>
+      </body>
+      </html>`);
     });
 });
 
