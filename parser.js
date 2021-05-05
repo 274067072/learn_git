@@ -35,6 +35,34 @@ function match(element, selector) {
   return false;
 }
 
+function specificity(selector) {
+  var p = [0, 0, 0, 0];
+  var selectorParts = selector.split(" ");
+  for (var part of selectorParts) {
+    if (part.charAt(0) === "#") {
+      p[1] += 1;
+    } else if (part.charAt(0) === ".") {
+      p[2] += 1;
+    } else {
+      p[3] += 1;
+    }
+  }
+  return p;
+}
+
+function compare(sp1, sp2) {
+  if (sp1[0] - sp2[0]) {
+    return sp1[0] - sp2[0];
+  }
+  if (sp1[1] - sp2[1]) {
+    return sp1[1] - sp2[1];
+  }
+  if (sp1[2] - sp2[2]) {
+    return sp1[2] - sp2[2];
+  }
+  return sp1[3] - sp2[3];
+}
+
 function computeCSS(element) {
   var elements = stack.slice().reverse();
   if (!element.computedStyle) {
@@ -56,12 +84,21 @@ function computeCSS(element) {
       matched = true;
     }
     if (matched) {
+      var sp = specificity(rule.selectors[0]);
       var computedStyle = element.computedStyle;
       for (var declaration of rule.declarations) {
         if (!computedStyle[declaration.property]) {
           computedStyle[declaration.property] = {};
         }
-        computedStyle[declaration.property].value = declaration.value;
+        if (!computedStyle[declaration.property].specificity) {
+          computedStyle[declaration.property].value = declaration.value;
+          computedStyle[declaration.property].specificity = sp;
+        } else if (
+          compare(computedStyle[declaration.property].specificity, sp)
+        ) {
+          computedStyle[declaration.property].value = declaration.value;
+          computedStyle[declaration.property].specificity = sp;
+        }
       }
     }
   }
