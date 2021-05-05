@@ -21,27 +21,23 @@ const server = http.createServer((req, res) => {
         <title>Document</title>
         <style>
           #box{
-            width:80%;
-            margin:0 auto;
-            background: #ccc;
-            text-align:center;
+            display:flex;
+            justifyContent:space-around;
+            background-color:rgb(255,192,203);
+            width:800px;
           }
-          img{
-            display: inline-block;
-            padding:1.5%;
-            width:21%;
-            height:200px;
+          div{
+            background-color:rgb(135,206,250);
+            width:150px;
+            height:150px;
           }
         </style>
       </head>
       <body>
         <div id="box">
-          <img src="http://img.mukewang.com/climg/5a45e49100014e5010601059.jpg" alt=""/>
-          <img src="http://img.mukewang.com/climg/5a45e53b00012e6d09940789.jpg" alt=""/>
-          <img src="http://img.mukewang.com/climg/5a45e53c0001d04e09940732.jpg" alt=""/>
-          <img src="http://img.mukewang.com/climg/5a45e49100014e5010601059.jpg" alt=""/>
-          <img src="http://img.mukewang.com/climg/5a45e53b00012e6d09940789.jpg" alt=""/>
-          <img src="http://img.mukewang.com/climg/5a45e53c0001d04e09940732.jpg" alt=""/>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </body>
       </html>`);

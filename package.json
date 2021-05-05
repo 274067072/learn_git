@@ -1,0 +1,23 @@
+{
+  "name": "learn_git",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/274067072/learn_git.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/274067072/learn_git/issues"
+  },
+  "homepage": "https://github.com/274067072/learn_git#readme",
+  "dependencies": {
+    "images": "^3.2.3"
+  }
+}
